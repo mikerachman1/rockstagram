@@ -38,6 +38,11 @@ header {
   justify-content: space-between;
 }
 
+.header-button-wrapper {
+  display: flex;
+  gap: 15px;
+}
+
 button {
   font-size: 16px;
   line-height: 18px;
@@ -64,4 +69,21 @@ button:hover:after {
   margin: 0 auto;
   max-width: 500px;
   padding: 20px;
+}
+
+.app-form {
+  display: flex;
+  flex-direction: column;
+  margin: 28px 0;
+  row-gap: 15px;
+}
+input {
+  padding: 5px 9px;
+  line-height: 18px;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+input:focus {
+  border: 1px solid gainsboro;
 }

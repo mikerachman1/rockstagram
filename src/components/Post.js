@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Post.css"
 import { Avatar } from "@material-ui/core";
 
 const Post = ({ username, caption, imageUrl }) => {

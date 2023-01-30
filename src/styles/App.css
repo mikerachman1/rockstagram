@@ -25,6 +25,7 @@ header {
   align-items: center;
   object-fit: contain;
   border-bottom: 1px solid lightgray;
+  z-index: 101;
 }
 
 .header-wrapper {
@@ -57,4 +58,10 @@ button:after {
 }
 button:hover:after { 
   transform: scaleX(1);
+}
+
+.timeline {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 20px;
 }

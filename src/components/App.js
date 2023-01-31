@@ -10,6 +10,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 import { makeStyles } from "@material-ui/core";
 import Modal from '@material-ui/core/Modal';
 import Signup from './Signup';
+import Login from './Login';
 
 function getModalStyle() {
   const top = 50;
@@ -57,7 +58,7 @@ function App() {
     fetchData();
   }, [posts]);
 
-  const signUp = async (e) => {
+  const signUp = (e) => {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -105,6 +106,16 @@ function App() {
           password={password}
           setPassword={setPassword}
           signUp={signUp}
+        />
+      }
+      { openLogin &&
+        <Login
+          setOpenLogin={setOpenLogin}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          login={login}
         />
       }
       {/* <Modal open={openSignup} onClose={() => setOpenSignup(false)}>

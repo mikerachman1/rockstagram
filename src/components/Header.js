@@ -1,13 +1,16 @@
 import React from "react";
 
-const Header = ({ user, signOut, setOpenSignup, setOpenLogin }) => {
+const Header = ({ user, logout, setOpenSignup, setOpenLogin }) => {
 
   return (
     <header>
       <div className="header-wrapper">
         <h1>Rockstagram</h1>
         {user ? (
-          <button onClick={() => signOut}>Logout</button>
+          <div className="header-button-wrapper">
+            <h3>{user.displayName}</h3>
+            <button onClick={() => logout()}>Logout</button>
+          </div>
         ) : (
           <div className="header-button-wrapper">
             <button onClick={() => setOpenLogin(true) || setOpenSignup(false)}>

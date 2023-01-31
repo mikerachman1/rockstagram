@@ -3,9 +3,13 @@ import Header from './Header';
 import Post from './Post';
 import '../styles/App.css'
 // import initialPosts from '../helpers/initialPosts';
-import { db, auth } from '../firebase/FirebaseInit';
+import { db } from '../firebase/FirebaseInit';
+import { collection, getDocs } from "firebase/firestore"; 
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 import { makeStyles } from "@material-ui/core";
 import Modal from '@material-ui/core/Modal';
+import Signup from './Signup';
 
 function getModalStyle() {
   const top = 50;
@@ -41,35 +45,29 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        console.log(authUser);
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-    });
-  }, [user, username]);
+    async function fetchData() {
+      const fetchedPosts = [];
+      const querySnapshot = await getDocs(collection(db, "posts"));
+      querySnapshot.forEach((doc) => {
+        const postObj = { id: doc.id, data: doc.data() }
+        fetchedPosts.push(postObj)
+      });
+      setPosts(fetchedPosts)
+    }
+    fetchData();
+  }, [posts]);
 
-  useEffect(() => {
-    db.collection("posts").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          post: doc.data(),
-        }))
-      );
-    });
-  }, []);
-
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        return authUser.user.updateProfile({
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        updateProfile(user, {
           displayName: username,
-        });
+        })
+        setUser(user)
       })
       .catch((err) => alert(err.message));
     setOpenSignup(false);
@@ -80,17 +78,36 @@ function App() {
 
   const login = (e) => {
     e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(email, password)
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        setUser(user)
+      })
       .catch((err) => alert(err.message));
     setOpenLogin(false);
     setEmail("");
     setPassword("");
   };
 
+  const logout = () => setUser(null);
+  
   return (
     <div className='app'>
-      <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
+      { openSignup &&
+        <Signup
+          setOpenSignup={setOpenSignup}
+          username={username}
+          setUsername={setUsername}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          signUp={signUp}
+        />
+      }
+      {/* <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
         <div style={modalStyle} className={classes.paper}>
           <center>
             <h1>Rockstagram</h1>
@@ -139,22 +156,26 @@ function App() {
             <button type='submit' onClick={login}>Log in</button>
           </form>
         </div>
-      </Modal>
+      </Modal> */}
       <Header 
         user={user}
-        signOut={auth.signOut()}
+        logout={logout}
         setOpenSignup={setOpenSignup}
         setOpenLogin={setOpenLogin}
       />
+      
+      <button onClick={() => console.log(posts)}>log posts</button>
+      <button onClick={() => console.log(user)}>log user</button>
+
       <div className='timeline'>
-        {posts.map(({ id, post }) => (
+        {posts.map((post) => (
           <Post
-            key={id}
-            postId={id}
-            user={user}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
+            key={post.id}
+            postId={post.id}
+            currentUser={user}
+            username={post.data.username}
+            caption={post.data.caption}
+            imageUrl={post.data.imageUrl}
           />
         ))}
       </div>

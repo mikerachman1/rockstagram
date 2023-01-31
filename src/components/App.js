@@ -7,35 +7,12 @@ import { db } from '../firebase/FirebaseInit';
 import { collection, getDocs } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-import { makeStyles } from "@material-ui/core";
-import Modal from '@material-ui/core/Modal';
 import Signup from './Signup';
 import Login from './Login';
 
-function getModalStyle() {
-  const top = 50;
-  const left = 50;
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-const useStyles = makeStyles(() => ({
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: "rgba(255,255,255,1)",
-    boxShadow: 24,
-    padding: "30px 60px",
-    borderRadius: "12px",
-  },
-}));
 
-function App() {
-  const classes = useStyles();
-  const [modalStyle] = useState(getModalStyle);
-  
+
+function App() {  
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   
@@ -118,56 +95,6 @@ function App() {
           login={login}
         />
       }
-      {/* <Modal open={openSignup} onClose={() => setOpenSignup(false)}>
-        <div style={modalStyle} className={classes.paper}>
-          <center>
-            <h1>Rockstagram</h1>
-          </center>
-          <form className='app-form'>
-            <input 
-              placeholder='Username'
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <input 
-              placeholder='Email'
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input 
-              placeholder='Password'
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type='submit' onClick={signUp}>Sign up</button>
-          </form>
-        </div>
-      </Modal>
-      <Modal open={openLogin} onClose={() => setOpenLogin(false)}>
-        <div style={modalStyle} className={classes.paper}>
-          <center>
-            <h1>Rockstagram</h1>
-          </center>
-          <form className='app-form'>
-            <input 
-              placeholder='Email'
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input 
-              placeholder='Password'
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button type='submit' onClick={login}>Log in</button>
-          </form>
-        </div>
-      </Modal> */}
       <Header 
         user={user}
         logout={logout}

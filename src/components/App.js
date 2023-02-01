@@ -25,18 +25,16 @@ function App() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const fetchedPosts = [];
-      const querySnapshot = await getDocs(collection(db, "posts"));
-      querySnapshot.forEach((doc) => {
-        const postObj = { id: doc.id, data: doc.data() }
-        fetchedPosts.push(postObj)
-      });
-      setPosts(fetchedPosts)
-    }
-    fetchData();
-  }, [posts]);
+  const fetchPosts = async () => {
+    const fetchedPosts = [];
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    querySnapshot.forEach((doc) => {
+      const postObj = { id: doc.id, data: doc.data() }
+      fetchedPosts.push(postObj)
+    });
+    setPosts(fetchedPosts)
+    console.log('FETCHED')
+  };
 
   const signUp = (e) => {
     e.preventDefault();
@@ -73,6 +71,11 @@ function App() {
   };
 
   const logout = () => setUser(null);
+
+  useEffect(() => {
+    console.log('mounted')
+    fetchPosts();
+  }, [])
   
   return (
     <div className='app'>
@@ -102,6 +105,7 @@ function App() {
         <NewPost
           setOpenNewPost={setOpenNewPost}
           user={user}
+          fetchPosts={fetchPosts}
         />
       }
       <Header 

@@ -3,7 +3,7 @@ import { db, fb, storage } from "../firebase/FirebaseInit";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 
-const NewPost = ({ setOpenNewPost, user }) => {
+const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState();
@@ -46,6 +46,7 @@ const NewPost = ({ setOpenNewPost, user }) => {
           setImage(null);
           setOpenNewPost(false);
           console.log('UPLOADED');
+          fetchPosts();
         });
       }
     );

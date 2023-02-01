@@ -8,7 +8,10 @@ const Header = ({ user, logout, setOpenSignup, setOpenLogin }) => {
         <h1>Rockstagram</h1>
         {user ? (
           <div className="header-button-wrapper">
-            <h3>{user.displayName}</h3>
+            <div className="header-user-container">
+              <p className="post-avatar">{user.displayName.charAt(0)}</p>
+              <h3>{user.displayName}</h3>
+            </div>
             <button onClick={() => logout()}>Logout</button>
           </div>
         ) : (

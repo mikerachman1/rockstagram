@@ -9,16 +9,19 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, up
 
 import Signup from './Signup';
 import Login from './Login';
+import NewPost from './NewPost';
 
 
 
 function App() {  
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
+  const [openNewPost, setOpenNewPost] = useState(false);
   
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
@@ -95,11 +98,18 @@ function App() {
           login={login}
         />
       }
+      { openNewPost &&
+        <NewPost
+          setOpenNewPost={setOpenNewPost}
+          user={user}
+        />
+      }
       <Header 
         user={user}
         logout={logout}
         setOpenSignup={setOpenSignup}
         setOpenLogin={setOpenLogin}
+        setOpenNewPost={setOpenNewPost}
       />
       
       <button onClick={() => console.log(posts)}>log posts</button>

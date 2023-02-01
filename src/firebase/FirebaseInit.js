@@ -2,6 +2,7 @@ import fb from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAHB8IG45jiU0HgCIilZ0H6ebhb5ZY2Vs0",
@@ -16,6 +17,6 @@ const firebaseApp = fb.initializeApp(firebaseConfig)
 
 const db = firebaseApp.firestore();
 const auth = fb.auth();
-const storage = fb.storage();
+const storage = getStorage(firebaseApp)
 
 export { db, auth, storage, fb };

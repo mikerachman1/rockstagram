@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = ({ user, logout, setOpenSignup, setOpenLogin }) => {
+const Header = ({ user, logout, setOpenSignup, setOpenLogin, setOpenNewPost }) => {
 
   return (
     <header>
@@ -8,6 +8,7 @@ const Header = ({ user, logout, setOpenSignup, setOpenLogin }) => {
         <h1>Rockstagram</h1>
         {user ? (
           <div className="header-button-wrapper">
+            <button onClick={() => setOpenNewPost(true)}>Add Post</button>
             <div className="header-user-container">
               <p className="post-avatar">{user.displayName.charAt(0)}</p>
               <h3>{user.displayName}</h3>

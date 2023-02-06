@@ -1,8 +1,7 @@
 import React from "react";
 import "../styles/Post.css"
-// import { Avatar } from "@material-ui/core";
 
-const Post = ({ username, caption, imageUrl }) => {
+const Post = ({ username, caption, imageUrl, postId, currentUser }) => {
   return (
     <div className="post">
       <div className="post-header">
@@ -12,6 +11,15 @@ const Post = ({ username, caption, imageUrl }) => {
       <img className="post-image" src={imageUrl} alt="post" />
       <h4 className="post-text">
         <strong>{username}</strong> {caption}
+        <div className="comments">
+          {/* <Comment postId={postId} /> */}
+          {/* { currentUser && 
+            <AddComment 
+              currentUser={currentUser} 
+              postId={postId} 
+            /> 
+          } */}
+        </div>
       </h4>
     </div>
   );

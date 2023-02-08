@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { db } from "../firebase/FirebaseInit";
+import { addDoc, serverTimestamp, collection } from "firebase/firestore";
+
 
 const NewComment = ({ currentUser, postId }) => {
   const [newComment, setNewComment] = useState('');
 
-  const submitComment = () => {
-    // post newComment to database as dependent of postId
+  const submitComment = async () => {
+    await addDoc(collection(db, "posts", `${postId}`, "comments"), {
+      timestamp: serverTimestamp(),
+      username: currentUser.displayName, 
+      body: newComment,
+    });
+    setNewComment('');
+    console.log('comment posted to db')
   };
 
   return (

@@ -9,10 +9,11 @@ const Header = ({ user, logout, setOpenSignup, setOpenLogin, setOpenNewPost }) =
         {user ? (
           <div className="header-button-wrapper">
             <button onClick={() => setOpenNewPost(true)}>Add Post</button>
-            <div className="header-user-container">
-              <p className="post-avatar">{user.displayName.charAt(0)}</p>
-              <h3>{user.displayName}</h3>
-            </div>
+            { user.displayName &&
+              <div className="header-user-container">
+                <p className="post-avatar">{user.displayName.charAt(0)}</p>
+                <h3>{user.displayName}</h3>
+              </div>}
             <button onClick={() => logout()}>Logout</button>
           </div>
         ) : (

@@ -13,15 +13,13 @@ const Post = ({ username, caption, imageUrl, postId, currentUser }) => {
       <img className="post-image" src={imageUrl} alt="post" />
       <h4 className="post-text">
         <strong>{username}</strong> {caption}
-        <div className="comments">
-          <Comment postId={postId} />
-          { currentUser && 
-            <NewComment 
-              currentUser={currentUser} 
-              postId={postId} 
-            /> 
-          }
-        </div>
+        <Comment postId={postId} />
+        { currentUser && 
+          <NewComment 
+            currentUser={currentUser} 
+            postId={postId} 
+          /> 
+        }
       </h4>
     </div>
   );

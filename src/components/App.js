@@ -29,11 +29,11 @@ function App() {
     const fetchedPosts = [];
     const querySnapshot = await getDocs(collection(db, "posts"));
     querySnapshot.forEach((doc) => {
-      const postObj = { id: doc.id, data: doc.data() }
-      fetchedPosts.push(postObj)
+      const postObj = { id: doc.id, data: doc.data() };
+      fetchedPosts.push(postObj);
     });
-    setPosts(fetchedPosts)
-    console.log('FETCHED')
+    setPosts(fetchedPosts);
+    console.log('Posts FETCHED');
   };
 
   const signUp = (e) => {
@@ -73,7 +73,7 @@ function App() {
   const logout = () => setUser(null);
 
   useEffect(() => {
-    console.log('mounted')
+    console.log('Posts mounted')
     fetchPosts();
   }, [])
   

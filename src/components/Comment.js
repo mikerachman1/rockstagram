@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase/FirebaseInit";
 
 const Comment = ({ postId }) => {
   const [comments, setComments] = useState([]);
 
-  const fetchComments = () => {
-
+  const fetchComments = async () => {
+    const fetchedComments = [];
+    const querySnapshot = await getDocs(collection(db, "posts", `${postId}`, "comments"));
+    querySnapshot.forEach((doc) => {
+      const commentObj = { id: doc.id, data: doc.data() };
+      fetchedComments.push(commentObj);
+    });
+    setComments(fetchedComments);
+    console.log('Comments FETCHED')
   };
+
+  useEffect(() => {
+    fetchComments();
+    console.log('Comments MOUNTED')
+  }, [])
 
   return (
     <div className="comments">

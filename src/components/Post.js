@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/Post.css"
+import Comment from "./Comment";
+import NewComment from "./NewComment";
 
 const Post = ({ username, caption, imageUrl, postId, currentUser }) => {
   return (
@@ -12,13 +14,13 @@ const Post = ({ username, caption, imageUrl, postId, currentUser }) => {
       <h4 className="post-text">
         <strong>{username}</strong> {caption}
         <div className="comments">
-          {/* <Comment postId={postId} /> */}
-          {/* { currentUser && 
-            <AddComment 
+          <Comment postId={postId} />
+          { currentUser && 
+            <NewComment 
               currentUser={currentUser} 
               postId={postId} 
             /> 
-          } */}
+          }
         </div>
       </h4>
     </div>

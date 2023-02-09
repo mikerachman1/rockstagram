@@ -6,6 +6,7 @@ import heart from "./images/heart.svg";
 import heartFilled from "./images/heart-filled.svg"
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/FirebaseInit";
+import { Link } from "react-router-dom";
 
 
 const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
@@ -41,7 +42,9 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
     <div className="post">
       <div className="post-header">
         <p className="post-avatar">{username.charAt(0)}</p>
-        <h3>{username}</h3>
+        <Link to={`/user/${username}`}>
+          <h3>{username}</h3>
+        </Link>
       </div>
       <img className="post-image" src={imageUrl} alt="post" />
       { currentUser && 

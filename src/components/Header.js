@@ -1,18 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = ({ user, logout, setOpenSignup, setOpenLogin, setOpenNewPost }) => {
-
   return (
     <header>
       <div className="header-wrapper">
-        <h1>Rockstagram</h1>
+        <Link to="/">
+          <h1>Rockstagram</h1>
+        </Link>
         {user ? (
           <div className="header-button-wrapper">
             <button onClick={() => setOpenNewPost(true)}>Add Post</button>
             { user.displayName &&
               <div className="header-user-container">
                 <p className="post-avatar">{user.displayName.charAt(0)}</p>
-                <h3>{user.displayName}</h3>
+                <Link to={`/user/${user.displayName}`}>
+                  <h3>{user.displayName}</h3>
+                </Link>
               </div>}
             <button onClick={() => logout()}>Logout</button>
           </div>

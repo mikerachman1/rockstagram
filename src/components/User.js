@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase/FirebaseInit";
@@ -6,14 +6,16 @@ import { db } from "../firebase/FirebaseInit";
 import Post from "./Post";
 
 const User = ({ currentUser }) => {
-  const { username } = useParams();
+  const { username } = useParams(); 
   
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState("");
   const [followers, setFollowers] = useState([]);
+  const [followersCount, setFollowersCount] = useState(0);
   const [posts, setPosts] = useState([]);
   
   const [badUser, setBadUser] = useState(false);
+  const [isCurrentUser, setIsCurrentUser] = useState(false);
 
   const fetchUserPosts = async () => {
     const postsRef = collection(db, "posts");
@@ -36,6 +38,7 @@ const User = ({ currentUser }) => {
       setDescription(userData.description);
       setAvatar(userData.avatar);
       setFollowers(userData.followers);
+      setFollowersCount(userData.followers.length);
       // console.log(userData);
       fetchUserPosts();
     } else {
@@ -44,8 +47,26 @@ const User = ({ currentUser }) => {
     }
   };
 
+  const followUser = async () => {
+    const userRef = doc(db, "users", `${username}`);
+    await updateDoc(userRef, {
+      followers: [...followers, currentUser.displayName]
+    });
+  };
+
+  const unfollowUser = async () => {
+    const filteredFollowers = followers.filter((user) => user !== currentUser.displayName);
+    const userRef = doc(db, "users", `${username}`);
+    await updateDoc(userRef, {
+      followers: filteredFollowers
+    });
+  };
+
   useEffect(() => {
     fetchUserData();
+    if (currentUser) {
+      if (username === currentUser.displayName) { setIsCurrentUser(true) }
+    }
   }, [])
 
   return (
@@ -59,23 +80,43 @@ const User = ({ currentUser }) => {
           :
             <p className="post-avatar">{username.charAt(0)}</p>
           }
-          <h1>{username}</h1>
-          <h3>{description}</h3>
-          <button>Follow</button>
-          <h3>{followers.length} Followers</h3>
-          <div className='timeline'>
-            {posts.map((post) => (
-              <Post
-                key={post.id}
-                postId={post.id}
-                currentUser={currentUser}
-                username={post.data.username}
-                caption={post.data.caption}
-                imageUrl={post.data.imageUrl}
-                likes={post.data.likes}
-              />
-            ))}
+          { isCurrentUser ? 
+            <div>
+              <h1>{username}</h1>
+              <button>Edit Profile</button>
+              {/* UserPost component for deleting posts? */}
+            </div>
+          :
+            <div>
+              <h1>{username}</h1>
+              <h3>{description}</h3>
+              { currentUser && 
+                <div>
+                  { followers.includes(currentUser.displayName) ? 
+                    <button onClick={() => unfollowUser()}>Unfollow</button>
+                  :
+                    <button onClick={() => followUser()}>Follow</button>
+                  }
+                </div>
+              }
+              <h3>{followersCount} Followers</h3>
+              <div className='timeline'>
+                {posts.map((post) => (
+                  <Post
+                    key={post.id}
+                    postId={post.id}
+                    currentUser={currentUser}
+                    username={post.data.username}
+                    caption={post.data.caption}
+                    imageUrl={post.data.imageUrl}
+                    likes={post.data.likes}
+                  />
+                ))}
+              </div>
+          
+          
           </div>
+          }
         </div>
       }
     </div>

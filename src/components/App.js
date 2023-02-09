@@ -128,6 +128,7 @@ function App() {
             username={post.data.username}
             caption={post.data.caption}
             imageUrl={post.data.imageUrl}
+            likes={post.data.likes}
           />
         ))}
       </div>

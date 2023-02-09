@@ -79,15 +79,13 @@ const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
         </center>
         <form className='app-form'>
           <progress className="progress" value={progress} max='100' />
-          <label htmlFor="file-upload" className="custom-file-upload">
-            Choose File
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChoice(e)}
-            />
-          </label>
+          <label htmlFor="file-upload" className="custom-file-upload"></label>
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleFileChoice(e)}
+          />
           {image && 
             <div>
               <p>{image.name}</p>

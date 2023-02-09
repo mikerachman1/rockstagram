@@ -7,6 +7,7 @@ const NewComment = ({ currentUser, postId }) => {
   const [newComment, setNewComment] = useState('');
 
   const submitComment = async () => {
+    if (newComment === "") { return };
     await addDoc(collection(db, "posts", `${postId}`, "comments"), {
       timestamp: serverTimestamp(),
       username: currentUser.displayName, 
@@ -25,8 +26,8 @@ const NewComment = ({ currentUser, postId }) => {
           id="comment"
           onChange={(e) => setNewComment(e.target.value)}
         />
-        <button onClick={() => submitComment()}>Post Comment</button>
       </label>
+      <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
     </div>
   );
 };

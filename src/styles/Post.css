@@ -47,9 +47,15 @@
 }
 
 .heart {
-  width: 45px;
+  width: 30px;
   height: auto;
+  cursor: pointer;
+}
+
+.like-container {
+  display: flex;
+  align-items: center;
   padding-left: 15px;
   padding-top: 20px;
-  cursor: pointer;
+  gap: 15px;
 }

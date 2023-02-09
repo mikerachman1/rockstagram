@@ -135,9 +135,9 @@ label {
   height: 25px;
 }
 
-input[type="file"] {
+/* input[type="file"] {
   display: none;
-}
+} */
 
 .custom-file-upload {
   border: 1px solid #ccc;
@@ -165,4 +165,12 @@ input[type="file"] {
   width: 50%;
   padding: 2rem;
   background-color: white;
+}
+
+.avatar {
+  margin-right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 10px;
 }

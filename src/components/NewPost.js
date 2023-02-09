@@ -40,6 +40,7 @@ const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
             caption: caption,
             imageUrl: url,
             username: user.displayName,
+            likes: [],
           });
           setProgress(0);
           setCaption("");

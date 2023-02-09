@@ -23,14 +23,13 @@ const NewComment = ({ currentUser, postId }) => {
     <div>
       { showForm ? 
         <div className="comment-form">
-          <label htmlFor="comment">
-            <input
-              type="text"
-              name="comment"
-              id="comment"
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-          </label>
+          <label htmlFor="comment"></label>
+          <input
+            type="text"
+            name="comment"
+            id="comment"
+            onChange={(e) => setNewComment(e.target.value)}
+          />
           <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
         </div>
       :

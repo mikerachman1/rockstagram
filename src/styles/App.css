@@ -96,6 +96,10 @@ input:focus {
   border: 1px solid gainsboro;
 }
 
+label {
+  display: none;
+}
+
 .overlay {
   background-color: #0000009f;
   position: fixed;

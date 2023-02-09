@@ -5,6 +5,7 @@ import { addDoc, serverTimestamp, collection } from "firebase/firestore";
 
 const NewComment = ({ currentUser, postId }) => {
   const [newComment, setNewComment] = useState('');
+  const [showForm, setShowForm] = useState(false);
 
   const submitComment = async () => {
     if (newComment === "") { return };
@@ -14,20 +15,27 @@ const NewComment = ({ currentUser, postId }) => {
       body: newComment,
     });
     setNewComment('');
+    setShowForm(false);
     console.log('comment posted to db')
   };
 
   return (
-    <div className="comment-form">
-      <label htmlFor="comment">
-        <input
-          type="text"
-          name="comment"
-          id="comment"
-          onChange={(e) => setNewComment(e.target.value)}
-        />
-      </label>
-      <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
+    <div>
+      { showForm ? 
+        <div className="comment-form">
+          <label htmlFor="comment">
+            <input
+              type="text"
+              name="comment"
+              id="comment"
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+          </label>
+          <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
+        </div>
+      :
+        <button className="comment-form" onClick={() => setShowForm(true)}>Add Comment</button>
+      }
     </div>
   );
 };

@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Post from './Post';
 import '../styles/App.css'
-// import initialPosts from '../helpers/initialPosts';
 import { db } from '../firebase/FirebaseInit';
-import { collection, getDocs } from "firebase/firestore"; 
+import { collection, getDocs, setDoc, doc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import Signup from './Signup';
 import Login from './Login';
 import NewPost from './NewPost';
+import Timeline from './Timeline';
+import User from './User';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 function App() {  
@@ -36,7 +38,7 @@ function App() {
     console.log('Posts FETCHED');
   };
 
-  const signUp = (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -53,6 +55,13 @@ function App() {
     setUsername("");
     setEmail("");
     setPassword("");
+
+    await setDoc(doc(db, "users", `${username}`), {
+      username: username,
+      followers: [],
+      description: [],
+      avatar:"",  
+    });
   };
 
   const login = (e) => {
@@ -79,64 +88,54 @@ function App() {
   
   return (
     <div className='app'>
-      { openSignup &&
-        <Signup
-          setOpenSignup={setOpenSignup}
-          username={username}
-          setUsername={setUsername}
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          signUp={signUp}
-        />
-      }
-      { openLogin &&
-        <Login
-          setOpenLogin={setOpenLogin}
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword}
-          login={login}
-        />
-      }
-      { openNewPost &&
-        <NewPost
-          setOpenNewPost={setOpenNewPost}
-          user={user}
-          fetchPosts={fetchPosts}
-        />
-      }
-      <Header 
-        user={user}
-        logout={logout}
-        setOpenSignup={setOpenSignup}
-        setOpenLogin={setOpenLogin}
-        setOpenNewPost={setOpenNewPost}
-      />
-      
-      { !user && 
-        <div className='notice'>
-          <h3>Log in or Sign up to add, like, and comment on Posts</h3>
-        </div>
-      }
-      {/* <button onClick={() => console.log(posts)}>log posts</button>
-      <button onClick={() => console.log(user)}>log user</button> */}
-
-      <div className='timeline'>
-        {posts.map((post) => (
-          <Post
-            key={post.id}
-            postId={post.id}
-            currentUser={user}
-            username={post.data.username}
-            caption={post.data.caption}
-            imageUrl={post.data.imageUrl}
-            likes={post.data.likes}
+      <BrowserRouter>
+        { openSignup &&
+          <Signup
+            setOpenSignup={setOpenSignup}
+            username={username}
+            setUsername={setUsername}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            signUp={signUp}
           />
-        ))}
-      </div>
+        }
+        { openLogin &&
+          <Login
+            setOpenLogin={setOpenLogin}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            login={login}
+          />
+        }
+        { openNewPost &&
+          <NewPost
+            setOpenNewPost={setOpenNewPost}
+            user={user}
+            fetchPosts={fetchPosts}
+          />
+        }
+        <Header 
+          user={user}
+          logout={logout}
+          setOpenSignup={setOpenSignup}
+          setOpenLogin={setOpenLogin}
+          setOpenNewPost={setOpenNewPost}
+        />
+        <Routes>
+          <Route 
+            path="/" 
+            element={ <Timeline posts={posts} currentUser={user} /> } 
+          />
+          <Route 
+            path='/user/:username'
+            element={ <User /> }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

@@ -59,7 +59,7 @@ function App() {
     await setDoc(doc(db, "users", `${username}`), {
       username: username,
       followers: [],
-      description: [],
+      description: "",
       avatar:"",  
     });
   };
@@ -132,7 +132,7 @@ function App() {
           />
           <Route 
             path='/user/:username'
-            element={ <User /> }
+            element={ <User currentUser={user} /> }
           />
         </Routes>
       </BrowserRouter>

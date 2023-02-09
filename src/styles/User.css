@@ -1,0 +1,16 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 1.5rem auto;
+  border: 1px solid black;
+  background-color: white;
+  width: 90%;
+}
+
+.avatar-and-name {
+  display: flex;
+  align-items: center;
+}

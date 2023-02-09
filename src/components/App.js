@@ -116,8 +116,13 @@ function App() {
         setOpenNewPost={setOpenNewPost}
       />
       
-      <button onClick={() => console.log(posts)}>log posts</button>
-      <button onClick={() => console.log(user)}>log user</button>
+      { !user && 
+        <div className='notice'>
+          <h3>Log in or Sign up to add, like, and comment on Posts</h3>
+        </div>
+      }
+      {/* <button onClick={() => console.log(posts)}>log posts</button>
+      <button onClick={() => console.log(user)}>log user</button> */}
 
       <div className='timeline'>
         {posts.map((post) => (

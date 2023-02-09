@@ -148,3 +148,12 @@ input[type="file"] {
 .preview-image {
   max-width: 100%;
 }
+
+.notice {
+  text-align: center;
+  margin: 2rem auto;
+  border: 2px solid black;
+  width: 50%;
+  padding: 2rem;
+  background-color: white;
+}

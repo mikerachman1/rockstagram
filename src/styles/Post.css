@@ -45,3 +45,11 @@
   justify-content: space-between;
   padding-top: 10px;
 }
+
+.heart {
+  width: 45px;
+  height: auto;
+  padding-left: 15px;
+  padding-top: 20px;
+  cursor: pointer;
+}

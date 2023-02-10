@@ -12,7 +12,7 @@ const User = ({ currentUser }) => {
   const { username } = useParams(); 
   
   const [description, setDescription] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [followersCount, setFollowersCount] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -80,7 +80,14 @@ const User = ({ currentUser }) => {
   return (
     <div>
       { openEditProfile && 
-        <EditProfile currentUser={currentUser} setOpenEditProfile={setOpenEditProfile}/>
+        <EditProfile 
+          currentUser={currentUser} 
+          setOpenEditProfile={setOpenEditProfile}
+          description={description}
+          setDescription={setDescription}
+          avatar={avatar}
+          setAvatar={setAvatar}  
+        />
       }
       { badUser ? 
         <h1>This user doesn't exist in the database</h1>

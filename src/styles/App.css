@@ -140,6 +140,12 @@ label {
   max-width: 100%;
 }
 
+.preview-avatar {
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+}
+
 .notice {
   text-align: center;
   margin: 2rem auto;

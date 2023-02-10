@@ -75,7 +75,7 @@ const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
       <div className="overlay" onClick={() => setOpenNewPost(false)}></div>
       <div className="popup">
         <center>
-          <h1>Rockstagram</h1>
+          <h1>Add Post</h1>
         </center>
         <form className='app-form'>
           <progress className="progress" value={progress} max='100' />

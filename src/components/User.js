@@ -93,28 +93,38 @@ const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar
       :
         <div>
           <div className="profile">
-            { isCurrentUser && 
-              <button onClick={() => setOpenEditProfile(true)}>Edit Profile</button>
-            }
-            <div className="avatar-and-name">
-              { currentUserAvatar ?
-                <img src={currentUserAvatar} alt="avatar" className="avatar"/>
-              :
-                <p className="post-avatar">{username.charAt(0)}</p>
-              }
-              <h1>{username}</h1>
-            </div>
-            <h3>{description}</h3>
-            { currentUser && currentUser.displayName !== username &&
-              <div>
-                { followers.includes(currentUser.displayName) ?
-                  <button onClick={() => unfollowUser()}>Unfollow</button>
-                :
-                  <button onClick={() => followUser()}>Follow</button>
+            <div className="profile-top">
+              <div className="profile-left">
+                
+                <div className="avatar-and-name">
+                  { currentUserAvatar ?
+                    <img src={currentUserAvatar} alt="avatar" className="avatar"/>
+                  :
+                    <p className="post-avatar">{username.charAt(0)}</p>
+                  }
+                  <h1>{username}</h1>
+                </div>
+                { isCurrentUser &&
+                  <button className="edit-button" onClick={() => setOpenEditProfile(true)}>Edit Profile</button>
                 }
               </div>
+              
+              <div className="profile-right">
+                { currentUser && currentUser.displayName !== username &&
+                  <div>
+                    { followers.includes(currentUser.displayName) ?
+                      <button onClick={() => unfollowUser()}>Unfollow</button>
+                    :
+                      <button onClick={() => followUser()}>Follow</button>
+                    }
+                  </div>
+                }
+                <h3>{followersCount} Followers</h3>
+              </div>
+            </div>
+            { description && 
+              <h3>{description}</h3>
             }
-            <h3>{followersCount} Followers</h3>
           </div>             
           <div className='timeline'>
             {posts.map((post) => (

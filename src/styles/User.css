@@ -1,16 +1,54 @@
 .profile {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  /* gap: 2rem; */
   padding: 2rem;
   margin: 1.5rem auto;
   border: 1px solid black;
   background-color: white;
-  width: 90%;
+  width: 70%;
+}
+
+.profile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.profile-left, .profile-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
 }
 
 .avatar-and-name {
   display: flex;
   align-items: center;
+}
+
+.profile > h3 {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid lightgray;
+  width: 100%;
+}
+
+.edit-button {
+  border: 1px solid #0095f6;
+  border-radius: 4px;
+  padding: 2px 13px;
+}
+
+.edit-button::after {
+  border-bottom: none;
+}
+
+.edit-button:hover {
+  background-color: #0095f6;
+  color: white;
 }

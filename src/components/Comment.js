@@ -10,6 +10,7 @@ import NewComment from "./NewComment";
 
 const Comment = ({ postId, currentUser }) => {
   const [comments, setComments] = useState([]);
+  const [viewComments, setViewComments] = useState(false);
 
   const fetchComments = async () => {
     const fetchedComments = [];
@@ -38,25 +39,42 @@ const Comment = ({ postId, currentUser }) => {
 
   return (
     <div>
-      <div className="comments">
-        {comments.map((comment) => (
-          <div className="comment" key={comment.id}>
+      {comments.length > 0 &&
+        <div>
+          {comments.length > 3 && !viewComments ?
+            <h3 onClick={() => setViewComments(true)} className="view-comments">
+              View {comments.length} comments
+            </h3>
+          :
             <div>
-              <Link to={`/user/${comment.data.username}`}>
-                <strong>{comment.data.username}</strong>
-              </Link>
-              {comment.data.body}
-            </div>
-            {currentUser && 
-              <div>
-                { comment.data.username === currentUser.displayName &&
-                  <img src={x} alt="delete-comment" className="delete-comment" onClick={() => deleteComment(comment.id)}/>
-                }
+              {viewComments &&
+              <div className="comments">
+                {comments.map((comment) => (
+                  <div className="comment" key={comment.id}>
+                    <div>
+                      <Link to={`/user/${comment.data.username}`}>
+                        <strong>{comment.data.username}</strong>
+                      </Link>
+                      {comment.data.body}
+                    </div>
+                    {currentUser &&
+                      <div>
+                        { comment.data.username === currentUser.displayName &&
+                          <img src={x} alt="delete-comment" className="delete-comment" onClick={() => deleteComment(comment.id)}/>
+                        }
+                      </div>
+                    }
+                  </div>
+                ))}
+                <h3 onClick={() => setViewComments(false)} className="close-comments">
+                  Close Comments
+                </h3>
               </div>
-            }
-          </div>
-        ))}
-      </div>
+              }
+            </div>
+          }
+        </div>
+      }
       { currentUser &&
             <NewComment
               currentUser={currentUser}

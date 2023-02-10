@@ -201,3 +201,16 @@ label {
 a > strong {
   padding-right: 4px;
 }
+
+.view-comments {
+  padding-top: 1rem;
+}
+
+.close-comments, .view-comments {
+  color: rgb(134, 134, 134);
+  cursor: pointer;
+}
+
+.close-comments:hover, .view-comments:hover {
+  color: black;
+}

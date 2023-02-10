@@ -3,7 +3,7 @@ import Header from './Header';
 import Post from './Post';
 import '../styles/App.css'
 import { db } from '../firebase/FirebaseInit';
-import { collection, getDocs, setDoc, doc } from "firebase/firestore"; 
+import { collection, getDocs, setDoc, doc, query, where, orderBy } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import Signup from './Signup';
@@ -29,7 +29,8 @@ function App() {
 
   const fetchPosts = async () => {
     const fetchedPosts = [];
-    const querySnapshot = await getDocs(collection(db, "posts"));
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       const postObj = { id: doc.id, data: doc.data() };
       fetchedPosts.push(postObj);

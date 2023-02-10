@@ -13,7 +13,7 @@ import heart from "./images/heart.svg";
 import heartFilled from "./images/heart-filled.svg"
 
 
-const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deletePost }) => {
+const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deletePost, currentUserAvatar }) => {
   const [likedByUser, setLikedByUser] = useState(false);
   const [likeCount, setLikeCount] = useState(likes.length);
   const [avatar, setAvatar] = useState(null);
@@ -52,7 +52,7 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deleteP
     if (!currentUser) { return };
     if (likes.includes(`${currentUser.displayName}`)) {setLikedByUser(true)}
     console.log('like check run')
-  }, [])
+  }, [currentUserAvatar])
 
   return (
     <div className="post">

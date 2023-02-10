@@ -13,7 +13,7 @@ import heart from "./images/heart.svg";
 import heartFilled from "./images/heart-filled.svg"
 
 
-const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
+const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deletePost }) => {
   const [likedByUser, setLikedByUser] = useState(false);
   const [likeCount, setLikeCount] = useState(likes.length);
   const [avatar, setAvatar] = useState(null);
@@ -67,9 +67,18 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
             <h3>{username}</h3>
           </Link>
         </div>
-        { username === currentUser.displayName && 
-          <img src={trash} alt="delete-post" className="trash" />
-        }
+        { currentUser && 
+          <div>
+          { username === currentUser.displayName &&
+            <img
+              src={trash}
+              alt="delete-post"
+              className="trash"
+              onClick={() => deletePost(postId)}
+            />
+          }
+        </div>
+      }
       </div>
       <img className="post-image" src={imageUrl} alt="post" />
       { currentUser && 

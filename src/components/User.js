@@ -10,7 +10,7 @@ import '../styles/User.css'
 import Post from "./Post";
 import EditProfile from "./EditProfile";
 
-const User = ({ currentUser }) => {
+const User = ({ currentUser, deletePost }) => {
   const { username } = useParams(); 
   
   const [description, setDescription] = useState("");
@@ -129,6 +129,7 @@ const User = ({ currentUser }) => {
                 caption={post.data.caption}
                 imageUrl={post.data.imageUrl}
                 likes={post.data.likes}
+                deletePost={deletePost}
               />
             ))}
           </div>

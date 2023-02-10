@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/App.css'
 import { db } from '../firebase/FirebaseInit';
-import { collection, getDocs, setDoc, doc, query, orderBy } from "firebase/firestore"; 
+import { collection, getDocs, setDoc, doc, query, orderBy, deleteDoc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import Signup from './Signup';
@@ -82,6 +82,18 @@ function App() {
 
   const logout = () => setUser(null);
 
+  const deletePost = async (postId) => {
+    //confirm deletePost then remove from db and posts state
+    console.log(postId)
+    const question = "Are you sure you want to delete this post?";
+    // eslint-disable-next-line no-restricted-globals
+    const result = confirm(question);
+    if (!result) { return };
+    await deleteDoc(doc(db, "posts", `${postId}`));
+    const filteredPosts = posts.filter((post) => post.id !== postId)
+    setPosts(filteredPosts);
+  };
+
   useEffect(() => {
     fetchPosts();
   }, [])
@@ -128,11 +140,11 @@ function App() {
         <Routes>
           <Route 
             path="/" 
-            element={ <Timeline posts={posts} currentUser={user} /> } 
+            element={ <Timeline posts={posts} currentUser={user} deletePost={deletePost}/> } 
           />
           <Route 
             path='/user/:username'
-            element={ <User currentUser={user} /> }
+            element={ <User currentUser={user} deletePost={deletePost}/> }
           />
         </Routes>
       </BrowserRouter>

@@ -50,7 +50,6 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deleteP
     fetchAvatar();
     if (!currentUser) { return };
     if (likes.includes(`${currentUser.displayName}`)) {setLikedByUser(true)}
-    console.log('like check run')
   }, [currentUserAvatar])
 
   return (

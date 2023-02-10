@@ -18,12 +18,10 @@ const Comment = ({ postId, currentUser }) => {
       fetchedComments.push(commentObj);
     });
     setComments(fetchedComments);
-    console.log('Comments FETCHED')
   };
 
   useEffect(() => {
     fetchComments();
-    console.log('Comments MOUNTED')
   }, [])
 
   return (

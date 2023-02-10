@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { db } from "../firebase/FirebaseInit";
 
 const Comment = ({ postId }) => {
@@ -26,7 +27,10 @@ const Comment = ({ postId }) => {
     <div className="comments">
       {comments.map((comment) => (
         <div className="comment" key={comment.id}>
-          <strong>{comment.data.username}</strong> {comment.data.body}
+          <Link to={`/user/${comment.data.username}`}>
+            <strong>{comment.data.username}</strong> 
+          </Link>
+          {comment.data.body}
         </div>
       ))}
     </div>

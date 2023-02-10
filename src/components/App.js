@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/App.css'
 import { db } from '../firebase/FirebaseInit';
-import { collection, getDocs, setDoc, doc, query, orderBy, deleteDoc } from "firebase/firestore"; 
+import { collection, getDocs, getDoc, setDoc, doc, query, orderBy, deleteDoc } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import Signup from './Signup';
@@ -26,6 +26,18 @@ function App() {
   
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+
+  const [currentUserAvatar, setCurrentUserAvatar] = useState(null);
+
+  const fetchCurrentUserAvatar = async () => {
+    if (!user) { return };
+    const userRef = doc(db, "users", `${user.displayName}`);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      if (userData.avatar) { setCurrentUserAvatar(userData.avatar) };
+    };
+  };
 
   const fetchPosts = async () => {
     const fetchedPosts = [];
@@ -96,7 +108,8 @@ function App() {
 
   useEffect(() => {
     fetchPosts();
-  }, [])
+    fetchCurrentUserAvatar();
+  }, [user])
   
   return (
     <div className='app'>
@@ -136,15 +149,17 @@ function App() {
           setOpenSignup={setOpenSignup}
           setOpenLogin={setOpenLogin}
           setOpenNewPost={setOpenNewPost}
+
+          currentUserAvatar={currentUserAvatar}
         />
         <Routes>
           <Route 
             path="/" 
-            element={ <Timeline posts={posts} currentUser={user} deletePost={deletePost}/> } 
+            element={ <Timeline posts={posts} currentUser={user} deletePost={deletePost} currentUserAvatar={currentUserAvatar}/> } 
           />
           <Route 
             path='/user/:username'
-            element={ <User currentUser={user} deletePost={deletePost}/> }
+            element={ <User currentUser={user} deletePost={deletePost} currentUserAvatar={currentUserAvatar} setCurrentUserAvatar={setCurrentUserAvatar} /> }
           />
         </Routes>
       </BrowserRouter>

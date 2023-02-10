@@ -89,7 +89,7 @@ const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar
         />
       }
       { badUser ? 
-        <h1>This user doesn't exist in the database</h1>
+        <h1 className="bad-user">Woops! <br></br>This user doesn't exist in the database</h1>
       :
         <div>
           <div className="profile">

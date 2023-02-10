@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase/FirebaseInit";
 
+import x from "./images/x.svg"
+
 import NewComment from "./NewComment";
 
 const Comment = ({ postId, currentUser }) => {
@@ -29,10 +31,19 @@ const Comment = ({ postId, currentUser }) => {
       <div className="comments">
         {comments.map((comment) => (
           <div className="comment" key={comment.id}>
-            <Link to={`/user/${comment.data.username}`}>
-              <strong>{comment.data.username}</strong>
-            </Link>
-            {comment.data.body}
+            <div>
+              <Link to={`/user/${comment.data.username}`}>
+                <strong>{comment.data.username}</strong>
+              </Link>
+              {comment.data.body}
+            </div>
+            {currentUser && 
+              <div>
+                { comment.data.username === currentUser.displayName &&
+                  <img src={x} alt="delete-comment" className="delete-comment"/>
+                }
+              </div>
+            }
           </div>
         ))}
       </div>

@@ -36,7 +36,7 @@ const NewComment = ({ currentUser, postId }) => {
           </div>
         </div>
       :
-        <button className="comment-form" onClick={() => setShowForm(true)}>Add Comment</button>
+        <button className="add-comment" onClick={() => setShowForm(true)}>Add Comment</button>
       }
     </div>
   );

@@ -171,3 +171,7 @@ label {
   align-items: center;
   gap: 15px;
 }
+
+.add-comment {
+  padding-top: 10px;
+}

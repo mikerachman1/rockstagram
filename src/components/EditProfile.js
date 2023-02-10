@@ -3,16 +3,13 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { useState } from "react";
 import { db, storage } from "../firebase/FirebaseInit";
 
-let avatar = null;
 
-const EditProfile = ({ currentUser, setOpenEditProfile }) => {
-  const [description, setDescription] = useState("");
+const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescription, avatar, setAvatar }) => {
   const [progress, setProgress] = useState(0);
 
   const handleFileChoice = (e) => {
     if(e.target.files[0]) {
-      avatar = e.target.files[0];
-      console.log(avatar)
+      setAvatar(e.target.files[0]);
     }
   };
 
@@ -40,8 +37,6 @@ const EditProfile = ({ currentUser, setOpenEditProfile }) => {
             description: description,
           });
           setProgress(0);
-          avatar = null;
-          setDescription("");
           setOpenEditProfile(false);
         });
       }
@@ -60,6 +55,7 @@ const EditProfile = ({ currentUser, setOpenEditProfile }) => {
           onChange={(e) => setDescription(e.target.value)}
         />
         <label htmlFor="avatar"></label>
+        <progress className="progress" value={progress} max='100' />
         <input
           id="file-upload"
           type="file"

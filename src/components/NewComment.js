@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db } from "../firebase/FirebaseInit";
 import { addDoc, serverTimestamp, collection } from "firebase/firestore";
-
+import x from './images/x.svg';
 
 const NewComment = ({ currentUser, postId }) => {
   const [newComment, setNewComment] = useState('');
@@ -30,7 +30,10 @@ const NewComment = ({ currentUser, postId }) => {
             id="comment"
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
+          <div className="comment-button-container">
+            <button className="comment-submit" onClick={() => submitComment()}>Post Comment</button>
+            <img src={x} alt="cancel" className="cancel" onClick={() => setShowForm(false)}/>
+          </div>
         </div>
       :
         <button className="comment-form" onClick={() => setShowForm(true)}>Add Comment</button>

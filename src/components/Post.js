@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Post.css"
 import Comment from "./Comment";
-import NewComment from "./NewComment";
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/FirebaseInit";
 import { Link } from "react-router-dom";
@@ -98,13 +97,7 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deleteP
           <strong>{username}</strong> 
         </Link>
         {caption}
-        <Comment postId={postId} />
-        { currentUser && 
-          <NewComment 
-            currentUser={currentUser} 
-            postId={postId} 
-          /> 
-        }
+        <Comment postId={postId} currentUser={currentUser} />
       </h4>
     </div>
   );

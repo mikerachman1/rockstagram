@@ -4,7 +4,7 @@ import Comment from "./Comment";
 import NewComment from "./NewComment";
 import heart from "./images/heart.svg";
 import heartFilled from "./images/heart-filled.svg"
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/FirebaseInit";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
   const [likedByUser, setLikedByUser] = useState(false);
   const [likeCount, setLikeCount] = useState(likes.length);
+  const [avatar, setAvatar] = useState(null);
+
 
   const likePost = async () => {
     const postRef = doc(db, "posts", `${postId}`);
@@ -32,7 +34,17 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
     setLikeCount(likeCount - 1);
   };
 
+  const fetchAvatar = async () => {
+    const userRef = doc(db, "users", `${username}`);
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      if (userData.avatar) { setAvatar(userData.avatar) };
+    };
+  };
+
   useEffect(() => {
+    fetchAvatar();
     if (!currentUser) { return };
     if (likes.includes(`${currentUser.displayName}`)) {setLikedByUser(true)}
     console.log('like check run')
@@ -41,7 +53,11 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
   return (
     <div className="post">
       <div className="post-header">
-        <p className="post-avatar">{username.charAt(0)}</p>
+        { avatar ? 
+          <img src={avatar} alt="avatar" className="avatar" />
+        :
+          <p className="post-avatar">{username.charAt(0)}</p>
+        }
         <Link to={`/user/${username}`}>
           <h3>{username}</h3>
         </Link>

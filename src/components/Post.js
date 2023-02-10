@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import "../styles/Post.css"
 import Comment from "./Comment";
 import NewComment from "./NewComment";
-import heart from "./images/heart.svg";
-import heartFilled from "./images/heart-filled.svg"
 import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/FirebaseInit";
 import { Link } from "react-router-dom";
+
+import trash from "./images/trash.svg"
+import heart from "./images/heart.svg";
+import heartFilled from "./images/heart-filled.svg"
 
 
 const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
@@ -55,14 +57,19 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes }) => {
   return (
     <div className="post">
       <div className="post-header">
-        { avatar ? 
-          <img src={avatar} alt="avatar" className="avatar" />
-        :
-          <p className="post-avatar">{username.charAt(0)}</p>
+        <div className="header-name">
+          { avatar ?
+            <img src={avatar} alt="avatar" className="avatar" />
+          :
+            <p className="post-avatar">{username.charAt(0)}</p>
+          }
+          <Link to={`/user/${username}`}>
+            <h3>{username}</h3>
+          </Link>
+        </div>
+        { username === currentUser.displayName && 
+          <img src={trash} alt="delete-post" className="trash" />
         }
-        <Link to={`/user/${username}`}>
-          <h3>{username}</h3>
-        </Link>
       </div>
       <img className="post-image" src={imageUrl} alt="post" />
       { currentUser && 

@@ -20,6 +20,12 @@
   display: flex;
   align-items: center;
   padding: 15px 20px;
+  justify-content: space-between;
+}
+
+.header-name {
+  display: flex;
+  align-items: center;
 }
 
 .post-avatar {
@@ -58,4 +64,14 @@
   padding-left: 15px;
   padding-top: 20px;
   gap: 15px;
+}
+
+.trash {
+  width: 25px;
+  height: auto;
+  cursor: pointer;
+}
+
+.trash:hover {
+  filter: invert(18%) sepia(89%) saturate(7422%) hue-rotate(1deg) brightness(93%) contrast(119%);
 }

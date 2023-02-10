@@ -10,11 +10,10 @@ import '../styles/User.css'
 import Post from "./Post";
 import EditProfile from "./EditProfile";
 
-const User = ({ currentUser, deletePost }) => {
+const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar }) => {
   const { username } = useParams(); 
   
   const [description, setDescription] = useState("");
-  const [avatar, setAvatar] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [followersCount, setFollowersCount] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -42,10 +41,9 @@ const User = ({ currentUser, deletePost }) => {
     if(docSnap.exists()) {
       const userData = docSnap.data();
       setDescription(userData.description);
-      setAvatar(userData.avatar);
+      setCurrentUserAvatar(userData.avatar);
       setFollowers(userData.followers);
       setFollowersCount(userData.followers.length);
-      // console.log(userData);
       fetchUserPosts();
     } else {
       console.log('error user doesnt exist in database');
@@ -87,8 +85,7 @@ const User = ({ currentUser, deletePost }) => {
           setOpenEditProfile={setOpenEditProfile}
           description={description}
           setDescription={setDescription}
-          avatar={avatar}
-          setAvatar={setAvatar}  
+          setCurrentUserAvatar={setCurrentUserAvatar}  
         />
       }
       { badUser ? 
@@ -100,8 +97,8 @@ const User = ({ currentUser, deletePost }) => {
               <button onClick={() => setOpenEditProfile(true)}>Edit Profile</button>
             }
             <div className="avatar-and-name">
-              { avatar ?
-                <img src={avatar} alt="avatar" className="avatar"/>
+              { currentUserAvatar ?
+                <img src={currentUserAvatar} alt="avatar" className="avatar"/>
               :
                 <p className="post-avatar">{username.charAt(0)}</p>
               }
@@ -130,6 +127,7 @@ const User = ({ currentUser, deletePost }) => {
                 imageUrl={post.data.imageUrl}
                 likes={post.data.likes}
                 deletePost={deletePost}
+                currentUserAvatar={currentUserAvatar}
               />
             ))}
           </div>

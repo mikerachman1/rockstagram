@@ -5,7 +5,7 @@ import { db, storage } from "../firebase/FirebaseInit";
 
 
 
-const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescription, setAvatar }) => {
+const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescription, setCurrentUserAvatar }) => {
   const [progress, setProgress] = useState(0);
   const [newAvatar, setNewAvatar] = useState(null)
 
@@ -42,7 +42,7 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
           });
           setProgress(0);
           setOpenEditProfile(false);
-          setAvatar(newAvatar);
+          setCurrentUserAvatar(newAvatar);
         });
       }
     )

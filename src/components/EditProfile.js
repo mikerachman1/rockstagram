@@ -46,23 +46,28 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
     <div>
       <div className="overlay" onClick={() => setOpenEditProfile(false)}></div>
       <div className="popup">
-        <label htmlFor="description"></label>
-        <input 
-          type="text"
-          id="description"
-          placeholder="Profile Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label htmlFor="avatar"></label>
-        <progress className="progress" value={progress} max='100' />
-        <input
-          id="file-upload"
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleFileChoice(e)}
-        />
-        <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+        <center>
+          <h1>Edit Your Profile</h1>
+        </center>
+        <form className="app-form">
+          <label htmlFor="description"></label>
+          <input
+            type="text"
+            id="description"
+            placeholder="Profile Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <label htmlFor="avatar"></label>
+          <progress className="progress" value={progress} max='100' />
+          <input
+            id="file-upload"
+            type="file"
+            accept="image/*"
+            onChange={(e) => handleFileChoice(e)}
+          />
+          <button type="submit" onClick={(e) => handleSubmit(e)}>Submit</button>
+        </form>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../styles/App.css'
@@ -82,7 +83,6 @@ function App() {
   const logout = () => setUser(null);
 
   useEffect(() => {
-    console.log('Posts mounted')
     fetchPosts();
   }, [])
   

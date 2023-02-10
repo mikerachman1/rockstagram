@@ -3,19 +3,21 @@ import { db } from "../firebase/FirebaseInit";
 import { addDoc, serverTimestamp, collection } from "firebase/firestore";
 import x from './images/x.svg';
 
-const NewComment = ({ currentUser, postId }) => {
+const NewComment = ({ currentUser, postId, comments, setComments }) => {
   const [newComment, setNewComment] = useState('');
   const [showForm, setShowForm] = useState(false);
 
   const submitComment = async () => {
     if (newComment === "") { return };
-    await addDoc(collection(db, "posts", `${postId}`, "comments"), {
+    const data = {
       timestamp: serverTimestamp(),
       username: currentUser.displayName, 
       body: newComment,
-    });
+    }
+    const docRef = await addDoc(collection(db, "posts", `${postId}`, "comments"), data);
     setNewComment('');
     setShowForm(false);
+    setComments([...comments, { id: docRef.id, data: data }])
     console.log('comment posted to db')
   };
 

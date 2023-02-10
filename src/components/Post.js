@@ -94,7 +94,10 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deleteP
         </div>
       }
       <h4 className="post-text">
-        <strong>{username}</strong> {caption}
+        <Link to={`/user/${username}`}>
+          <strong>{username}</strong> 
+        </Link>
+        {caption}
         <Comment postId={postId} />
         { currentUser && 
           <NewComment 

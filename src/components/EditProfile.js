@@ -4,19 +4,23 @@ import React, { useState } from "react";
 import { db, storage } from "../firebase/FirebaseInit";
 
 
-const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescription, avatar, setAvatar }) => {
+
+const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescription, setAvatar }) => {
   const [progress, setProgress] = useState(0);
+  const [newAvatar, setNewAvatar] = useState(null)
 
   const handleFileChoice = (e) => {
     if(e.target.files[0]) {
-      setAvatar(e.target.files[0]);
+      setNewAvatar(e.target.files[0]);
+      console.log(e.target.files[0]);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(newAvatar);
     const storageRef = ref(storage, `avatars/${currentUser.displayName}`);
-    const uploadTask = uploadBytesResumable(storageRef, avatar);
+    const uploadTask = uploadBytesResumable(storageRef, newAvatar);
 
     uploadTask.on(
       "state_changed",
@@ -38,6 +42,7 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
           });
           setProgress(0);
           setOpenEditProfile(false);
+          setAvatar(newAvatar);
         });
       }
     )

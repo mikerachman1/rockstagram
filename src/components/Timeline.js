@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "./Post";
 
-const Timeline = ({ posts, currentUser, deletePost }) => {
+const Timeline = ({ posts, currentUser, deletePost, currentUserAvatar }) => {
 
   return (
     <div>
@@ -24,6 +24,8 @@ const Timeline = ({ posts, currentUser, deletePost }) => {
             imageUrl={post.data.imageUrl}
             likes={post.data.likes}
             deletePost={deletePost}
+            
+            currentUserAvatar={currentUserAvatar}
           />
         ))}
       </div>

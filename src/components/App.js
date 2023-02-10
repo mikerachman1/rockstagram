@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
-import Post from './Post';
 import '../styles/App.css'
 import { db } from '../firebase/FirebaseInit';
-import { collection, getDocs, setDoc, doc, query, where, orderBy } from "firebase/firestore"; 
+import { collection, getDocs, setDoc, doc, query, orderBy } from "firebase/firestore"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import Signup from './Signup';

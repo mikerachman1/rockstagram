@@ -41,7 +41,7 @@ const Comment = ({ postId, currentUser }) => {
     <div>
       {comments.length > 0 &&
         <div>
-          {comments.length > 3 && !viewComments ?
+          { !viewComments ?
             <h3 onClick={() => setViewComments(true)} className="view-comments">
               View {comments.length} comments
             </h3>

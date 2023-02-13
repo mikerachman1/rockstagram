@@ -215,3 +215,14 @@ a > strong {
 .close-comments:hover, .view-comments:hover {
   color: black;
 }
+
+@media (max-width: 600px) {
+  header {
+    height: 100px;
+  }
+
+  .header-wrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

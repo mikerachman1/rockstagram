@@ -16,9 +16,18 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
     }
   };
 
-  const handleSubmit = (e) => {
-    if (!newAvatar) { return };
+  const handleSubmit = async (e) => {
+    const userRef = doc(db, "users", `${currentUser.displayName}`);
     e.preventDefault();
+    if (!newAvatar) { 
+      console.log('update desc')
+      await updateDoc(userRef, {
+        description: description,
+      });
+      setOpenEditProfile(false)
+      return 
+    };
+
     const storageRef = ref(storage, `avatars/${currentUser.displayName}`);
     const uploadTask = uploadBytesResumable(storageRef, newAvatar);
 
@@ -34,11 +43,12 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
       () => {
         getDownloadURL(uploadTask.snapshot.ref)
         .then((url) => {
-          const userRef = doc(db, "users", `${currentUser.displayName}`);
+          
           updateDoc(userRef, {
             avatar: url,
             description: description,
           });
+          console.log('doc updated')
           setProgress(0);
           setOpenEditProfile(false);
           setCurrentUserAvatar(newAvatar);

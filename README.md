@@ -20,7 +20,7 @@ A photo sharing app for rock climbers
   React router helped me facilitate page navigation between the timeline and user pages.
 
 ## Screenshot
-![screenshot](/src/components/images/images/screenshot.png?raw=true)
+![screenshot](/src/components/images/screenshot.png?raw=true)
 
 ## Notes
   - This project uses Firebase as a backend service. Services used include: authentication, firestore database, and storage.

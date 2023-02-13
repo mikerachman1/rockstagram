@@ -48,7 +48,6 @@ function App() {
       fetchedPosts.push(postObj);
     });
     setPosts(fetchedPosts);
-    console.log('Posts FETCHED');
   };
 
   const signUp = async (e) => {
@@ -96,7 +95,6 @@ function App() {
 
   const deletePost = async (postId) => {
     //confirm deletePost then remove from db and posts state
-    console.log(postId)
     const question = "Are you sure you want to delete this post?";
     // eslint-disable-next-line no-restricted-globals
     const result = confirm(question);

@@ -13,13 +13,11 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
   const handleFileChoice = (e) => {
     if(e.target.files[0]) {
       setNewAvatar(e.target.files[0]);
-      console.log(e.target.files[0]);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newAvatar);
     const storageRef = ref(storage, `avatars/${currentUser.displayName}`);
     const uploadTask = uploadBytesResumable(storageRef, newAvatar);
 
@@ -30,7 +28,6 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
         setProgress(progress);
       },
       (err) => {
-        console.log(err);
         alert(err.message);
       },
       () => {

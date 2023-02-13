@@ -28,7 +28,6 @@ const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
         setProgress(progress);
       },
       (err) => {
-        console.log(err);
         alert(err.message);
       }, 
       () => {
@@ -46,7 +45,6 @@ const NewPost = ({ setOpenNewPost, user, fetchPosts }) => {
           setCaption("");
           setImage(null);
           setOpenNewPost(false);
-          console.log('UPLOADED');
           fetchPosts();
         });
       }

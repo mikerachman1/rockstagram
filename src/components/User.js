@@ -46,7 +46,6 @@ const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar
       setFollowersCount(userData.followers.length);
       fetchUserPosts();
     } else {
-      console.log('error user doesnt exist in database');
       setBadUser(true);
     }
   };

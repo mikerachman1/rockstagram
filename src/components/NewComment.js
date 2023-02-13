@@ -18,7 +18,6 @@ const NewComment = ({ currentUser, postId, comments, setComments }) => {
     setNewComment('');
     setShowForm(false);
     setComments([...comments, { id: docRef.id, data: data }])
-    console.log('comment posted to db')
   };
 
   return (

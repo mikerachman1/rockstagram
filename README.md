@@ -2,7 +2,7 @@
 
 A photo sharing app for rock climbers
 
-[👉 Live demo 👈](https://mikerachman1.github.io/shopping-cart/)
+[👉 Live demo 👈](https://rockstagram-9e421.web.app/)
 
 ## Functionality
   - The home page is a timeline of all posts made by registered users. The timeline can be returned to by clicking the "Rockstagram" label located in the header.

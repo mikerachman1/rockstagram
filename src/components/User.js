@@ -74,7 +74,7 @@ const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar
     if (currentUser) {
       if (username === currentUser.displayName) { setIsCurrentUser(true) }
     }
-  }, [posts])
+  }, [currentUser])
 
   return (
     <div>

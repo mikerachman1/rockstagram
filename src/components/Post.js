@@ -49,8 +49,10 @@ const Post = ({ username, caption, imageUrl, postId, currentUser, likes, deleteP
   useEffect(() => {
     fetchAvatar();
     if (!currentUser) { return };
-    if (likes.includes(`${currentUser.displayName}`)) {setLikedByUser(true)}
-  }, [currentUserAvatar])
+    if (likes.includes(`${currentUser.displayName}`)) {
+      setLikedByUser(true)
+    } else { setLikedByUser(false) }
+  }, [currentUserAvatar, currentUser])
 
   return (
     <div className="post">

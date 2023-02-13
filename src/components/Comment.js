@@ -42,9 +42,18 @@ const Comment = ({ postId, currentUser }) => {
       {comments.length > 0 &&
         <div>
           { !viewComments ?
-            <h3 onClick={() => setViewComments(true)} className="view-comments">
-              View {comments.length} comments
-            </h3>
+            <div>
+              { comments.length === 1 ? 
+                <h3 onClick={() => setViewComments(true)} className="view-comments">
+                  View {comments.length} comment
+                </h3>
+              :
+                <h3 onClick={() => setViewComments(true)} className="view-comments">
+                  View {comments.length} comments
+                </h3>
+              }
+              
+            </div>
           :
             <div>
               {viewComments &&

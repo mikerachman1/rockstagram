@@ -91,7 +91,10 @@ function App() {
     setPassword("");
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    setCurrentUserAvatar(null);
+  };
 
   const deletePost = async (postId) => {
     //confirm deletePost then remove from db and posts state

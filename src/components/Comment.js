@@ -24,13 +24,13 @@ const Comment = ({ postId, currentUser }) => {
   };
 
   const deleteComment = async (commentId) => {
-    const filteredComments = comments.filter((comment) => comment.id !== commentId);
-    setComments(filteredComments);
     const question = "Are you sure you want to delete this comment?";
     // eslint-disable-next-line no-restricted-globals
     const result = confirm(question)
     if (!result) { return };
     await deleteDoc(doc(db, "posts", `${postId}`, "comments", `${commentId}`));
+    const filteredComments = comments.filter((comment) => comment.id !== commentId);
+    setComments(filteredComments);
   };
 
   useEffect(() => {

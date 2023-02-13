@@ -13,13 +13,15 @@ const Header = ({ user, logout, setOpenSignup, setOpenLogin, setOpenNewPost, cur
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
       const userData = docSnap.data();
-      if (userData.avatar) { setAvatar(userData.avatar) };
+      if (userData.avatar) { 
+        setAvatar(userData.avatar) 
+      } else { setAvatar(null) };
     };
   };
 
   useEffect(() => {
     fetchAvatar();
-  }, [currentUserAvatar])
+  }, [currentUserAvatar, user])
   
   return (
     <header>

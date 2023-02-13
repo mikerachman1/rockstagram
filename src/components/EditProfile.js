@@ -17,6 +17,7 @@ const EditProfile = ({ currentUser, setOpenEditProfile, description, setDescript
   };
 
   const handleSubmit = (e) => {
+    if (!newAvatar) { return };
     e.preventDefault();
     const storageRef = ref(storage, `avatars/${currentUser.displayName}`);
     const uploadTask = uploadBytesResumable(storageRef, newAvatar);

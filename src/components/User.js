@@ -118,7 +118,11 @@ const User = ({ currentUser, deletePost, currentUserAvatar, setCurrentUserAvatar
                     }
                   </div>
                 }
-                <h3>{followersCount} Followers</h3>
+                {followersCount > 1 || followersCount === 0 ? 
+                  <h3>{followersCount} Followers</h3>
+                :
+                  <h3>{followersCount} Follower</h3>
+                }
               </div>
             </div>
             { description && 
